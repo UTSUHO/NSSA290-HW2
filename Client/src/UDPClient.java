@@ -38,6 +38,13 @@ public class UDPClient
                     String str1 = input.readLine();
                     if (str1.equals("end")) {
                         counter = 1;
+                        try {
+                            input.close();
+                            socket.close();
+                        }
+                        catch (IOException localIOException3) {
+                            System.out.println(localIOException3);
+                        }
                     }
                     byte[] arrayOfByte = str1.getBytes();
                     DatagramPacket localDatagramPacket = new DatagramPacket(arrayOfByte, arrayOfByte.length, address, paramInt);

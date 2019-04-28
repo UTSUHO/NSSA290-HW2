@@ -49,6 +49,15 @@ public class TCPClient
                     String str = input.readLine();
                     if (str.equals("end")) {
                         counter = 1;
+                        try{
+                        input.close();
+                        socketOut.close();
+                        socketIn.close();
+                        socket.close();
+                        }
+                        catch (IOException localIOException3) {
+                            System.out.println(localIOException3);
+                        }
                     }
                     socketOut.writeUTF(str);
                     str = socketIn.readUTF();
