@@ -8,11 +8,8 @@ import java.net.InetAddress;
 public class UDPClient
 {
     private BufferedReader input = null;
-
     private DatagramSocket socket;
-
     private InetAddress address;
-
 
     public UDPClient(String paramString, int paramInt)
     {
@@ -41,8 +38,7 @@ public class UDPClient
                         try {
                             input.close();
                             socket.close();
-                        }
-                        catch (IOException localIOException3) {
+                        } catch (IOException localIOException3) {
                             System.out.println(localIOException3);
                         }
                     }
@@ -63,16 +59,6 @@ public class UDPClient
                 {
                     System.out.println(localIOException2);
                 }
-//                finally{
-//                    try
-//                    {
-//                        input.close();
-//                        socket.close();
-//                    }
-//                    catch (IOException localIOException3) {
-//                        System.out.println(localIOException3);
-//                    }
-//                }
             }
         }
     }

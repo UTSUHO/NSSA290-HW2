@@ -7,15 +7,9 @@ import java.net.Socket;
 public class TCPClient
 {
     private Socket socket = null;
-
     private java.io.DataOutputStream socketOut = null;
-
     private DataInputStream socketIn = null;
-
     private BufferedReader input = null;
-
-
-
 
     public TCPClient(String paramString, int paramInt)
     {
@@ -49,13 +43,12 @@ public class TCPClient
                     String str = input.readLine();
                     if (str.equals("end")) {
                         counter = 1;
-                        try{
+                        try {
                         input.close();
                         socketOut.close();
                         socketIn.close();
                         socket.close();
-                        }
-                        catch (IOException localIOException3) {
+                        } catch (IOException localIOException3) {
                             System.out.println(localIOException3);
                         }
                     }
@@ -71,18 +64,6 @@ public class TCPClient
                 {
                     System.out.println(localIOException2);
                 }
-//                finally{
-//                    try
-//                    {
-//                        input.close();
-//                        socketOut.close();
-//                        socketIn.close();
-//                        socket.close();
-//                    }
-//                    catch (IOException localIOException3) {
-//                        System.out.println(localIOException3);
-//                    }
-//                }
             }
         }
     }
