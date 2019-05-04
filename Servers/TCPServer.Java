@@ -12,16 +12,6 @@ import java.io.DataOutputStream;
 
 public class TCPServer{
 
-    public static ArrayList<String> msgList = new ArrayList<String>();
-
-    public static void main(String[] args) 
-    {
-        
-        int port = 17689;
-            new TCPServer().execute(port);
-            
-    }
-
 
     public void execute(int port)
     {
@@ -30,12 +20,14 @@ public class TCPServer{
             InetAddress net =  InetAddress.getLocalHost();
 
             String host = net.getHostAddress();
+            
             System.out.println(host);
 
             while(true)
             {
+            
                 Socket s = ss.accept();
-                System.out.println("Client is connecting");
+                System.out.println();
                ServerThread st = new ServerThread(s);
                 st.start();
             }
@@ -51,12 +43,20 @@ public class TCPServer{
         BufferedReader br = null;
         PrintWriter pw = null;
        
+            java.text.SimpleDateFormat localSimpleDateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date localDate = new Date();
+            String timeStampString = localSimpleDateFormat.format(localDate);
+            
+           
+        
+            
+            
         public ServerThread(Socket clientSocket)
         {
             this.s = clientSocket;
             try {
                
-                System.out.println("Client is connected");
+                System.out.println("Client is connected at "+ timeStampString);
 
             } catch (Exception e) {
                 //TODO: handle exception
@@ -67,32 +67,30 @@ public class TCPServer{
         {
             try 
             {
-                
-                //ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
-                //ObjectInputStream ois = new DataInputStream(s.getInputStream());
-                
-               
-                
-             
-            DataOutputStream socketOut = new java.io.DataOutputStream(s.getOutputStream());
-            DataInputStream socketIn = new DataInputStream(new java.io.BufferedInputStream(s.getInputStream()));
-            BufferedReader input = new BufferedReader(new java.io.InputStreamReader(System.in));
+               InetAddress net =  InetAddress.getLocalHost();
+               String host = net.getHostAddress();
+               DataOutputStream socketOut = new java.io.DataOutputStream(s.getOutputStream());
+               DataInputStream socketIn = new DataInputStream(new java.io.BufferedInputStream(s.getInputStream()));
+               BufferedReader input = new BufferedReader(new java.io.InputStreamReader(System.in));
 
                
+              
+                    String str ="";
                     
-                    String str = input.readLine();
-                    System.out.println(str);    
-                
-                    str = socketIn.readUTF();
-                    socketOut.writeUTF(str);
+                   
+                    while(str != "end")
+                    {
+                      str = socketIn.readUTF();
+                    
+                     System.out.println(str);
+                    
+                    
+                    socketOut.writeUTF(host +" "+timeStampString+" "+str);
                     socketOut.flush();                   
                     System.out.println(str);
-                    
-                 
-               
 
+                    }
                     
-         
             }catch(Exception e){}
         }
     }
