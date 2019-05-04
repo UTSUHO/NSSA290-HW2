@@ -44,6 +44,10 @@ public class TCPClient
                     if (str.equals("end")) {
                         counter = 1;
                         try {
+                            socketOut.writeUTF(str);
+                            socketOut.flush();
+                            str = socketIn.readUTF();
+                            System.out.println(str);
                         input.close();
                         socketOut.close();
                         socketIn.close();
@@ -53,6 +57,7 @@ public class TCPClient
                         }
                     }
                     socketOut.writeUTF(str);
+                    socketOut.flush();
                     str = socketIn.readUTF();
                     System.out.println(str);
                 }
