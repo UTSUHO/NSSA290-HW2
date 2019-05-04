@@ -37,6 +37,7 @@ public class MainServer
             tcps.execute(i);
         } else if (protocolString.equals("udp")) {
             UDPServer udps = new UDPServer(i);
+            udps.listen();
             
         } else {
             System.err.println("Unknown protocol " + protocolString);
