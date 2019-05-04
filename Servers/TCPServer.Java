@@ -1,10 +1,13 @@
 package Servers;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
 
-public class MultiThreadedServer implements Runnable{
+public class TCPServer implements Runnable{
 
     protected int          serverPort   = 8080;
     protected ServerSocket serverSocket = null;
@@ -62,4 +65,34 @@ public class MultiThreadedServer implements Runnable{
         }
     }
 
+}
+
+
+class WorkerRunnable implements Runnable{
+
+    protected Socket clientSocket = null;
+    protected String serverText   = null;
+
+    public WorkerRunnable(Socket clientSocket, String serverText) {
+        this.clientSocket = clientSocket;
+        this.serverText   = serverText;
+    }
+
+    public void run() {
+        try {
+            InputStream input  = clientSocket.getInputStream();
+            OutputStream output = clientSocket.getOutputStream();
+            long time = System.currentTimeMillis();
+            output.write(("HTTP/1.1 200 OK\n\nWorkerRunnable: " +
+this.serverText + " - " +
+time +
+"").getBytes());
+            output.close();
+            input.close();
+            System.out.println("Request processed: " + time);
+        } catch (IOException e) {
+            //report exception somewhere.
+            e.printStackTrace();
+        }
+    }
 }
