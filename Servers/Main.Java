@@ -15,7 +15,7 @@ public class Main
        InetAddress net =  InetAddress.getLocalHost();
 
        String host = net.getHostAddress();
-         
+       String hostName = net.getHostName();
     
         Scanner localScanner = new Scanner(System.in);
         System.out.print("Enter TCP or UDP: ");
@@ -28,17 +28,8 @@ public class Main
         java.text.SimpleDateFormat localSimpleDateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date localDate = new Date();
         String timeStampString = localSimpleDateFormat.format(localDate);
-        // try
-//         {
-//             InetAddress localInetAddress = InetAddress.getByName(hostnameString);
-//             IPAddressString = localInetAddress.getHostAddress();
-//         }
-//         catch (java.net.UnknownHostException localUnknownHostException) {
-//             System.out.println("Can't resolve hostname " + localUnknownHostException);
-//             System.exit(-1);
-//         }
 
-        System.out.println("Starting Up "  + host + " using " + protocolString+" Server" + " on Port " + i + " at " + timeStampString);
+        System.out.println("Starting Up At Host: " +hostName+ " " + host + " using " + protocolString+" Server " + " on Port " + i + " at " + timeStampString);
 
 //      initialization
         if (protocolString.equals("tcp")) {
