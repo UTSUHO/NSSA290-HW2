@@ -14,7 +14,22 @@ public class TCPServer implements Runnable{
     protected boolean      isStopped    = false;
     protected Thread       runningThread= null;
 
-    public MultiThreadedServer(int port){
+    public static void main(String[] args)
+    {
+        TCPServer server = new TCPServer(9000);
+            new Thread(server).start();
+
+            try {
+                Thread.sleep(20 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Stopping Server");
+            server.stop();   
+    }
+    
+    
+    public TCPServer(int port){
         this.serverPort = port;
     }
 
