@@ -5,9 +5,9 @@ import java.net.InetAddress;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Main
+public class MainServer
 {
-    public Main() {}
+    public MainServer() {}
 
     public static void main(String[] paramArrayOfString) throws Exception
     {
