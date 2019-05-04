@@ -68,11 +68,13 @@ public class UDPServer {
             
             // blocks until a packet is received
             udpSocket.receive(packet);
+            InetAddress ip = packet.getAddress();
+            int port = packet.getPort();
             msg = new String(packet.getData()).trim();
             String newMsg = net + " "+ timeStampString+" "+ msg; 
             byte[] buf2 = newMsg.getBytes();
             
-            packet = new DatagramPacket(buf2, buf2.length);
+            packet = new DatagramPacket(buf2, buf2.length, ip, port);
             //there is no send so your side is still waiting for it
             udpSocket.send(packet);
             
@@ -87,3 +89,4 @@ public class UDPServer {
     }
 }
 //
+
