@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.*;
 import java.util.*;
 import java.io.*;
+import java.io.DataOutputStream;
 
 public class TCPServer{
 
@@ -20,6 +21,7 @@ public class TCPServer{
             new TCPServer().execute(port);
             
     }
+
 
     public void execute(int port)
     {
@@ -66,23 +68,28 @@ public class TCPServer{
             try 
             {
                 
-                ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
-                ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+                //ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
+                //ObjectInputStream ois = new DataInputStream(s.getInputStream());
+                
+               
+                
+             
+            DataOutputStream socketOut = new java.io.DataOutputStream(s.getOutputStream());
+            DataInputStream socketIn = new DataInputStream(new java.io.BufferedInputStream(s.getInputStream()));
+            BufferedReader input = new BufferedReader(new java.io.InputStreamReader(System.in));
 
                
-                    String msg =(String)ois.readObject();
-                    System.out.println("Server - MSG received = " + msg);
+                    
+                    String str = input.readLine();
+                    System.out.println(str);    
+                
+                    str = socketIn.readUTF();
+                    socketOut.writeUTF(str);
+                    socketOut.flush();                   
+                    System.out.println(str);
+                    
                  
-                    msgList.add(msg);
-                    //clientList.add(pw);
-                   
-                    oos.writeObject(msgList);
-                    oos.flush();
-                    for (String msgs : msgList)
-                    {
-                        oos.writeObject(msg);
-                    }
-                    oos.flush();
+               
 
                     
          
